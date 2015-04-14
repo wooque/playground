@@ -1,0 +1,54 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<script>
+function Tree(size) {
+    this.data = new Int32Array(size);
+    this.cap = 0;
+}
+
+function sumit(data, index) {
+	if (data === null || index === -1) {
+		return 0;
+	}
+	return data[index] + sumit(data, data[index+1]) + sumit(data, data[index+2]);
+}
+
+function expand(tree, init, level) {
+    if (tree === null || level <= 0) {
+		return -1;
+	}
+    var left = expand(tree, init, level - 1);
+    var right = expand(tree, init, level - 1);
+    tree.data[tree.cap++] = init;
+    tree.data[tree.cap++] = left;
+    tree.data[tree.cap++] = right;
+    return tree.cap-3;
+}
+
+function clear(tree) {
+    if (tree === null) {
+        return;
+    }
+    tree.cap = 0;
+}
+
+function bench() {
+    var start = new Date().getTime();
+    var tree = new Tree(3*(1<<20));
+    for(var j = 1; j < 101; j++) {
+		for(var i = 1; i < 21; i++) {
+            var ind = expand(tree, 25 - i, i);
+			console.log(i + ": " + sumit(tree.data, ind));
+            clear(tree);
+		}
+	}
+    var end = new Date().getTime();
+    console.log('Time: ' + (end - start) + ' ms');
+}
+</script>
+</head>
+<body>
+<button onclick="bench()">Run</button>
+</body>
+</html>
