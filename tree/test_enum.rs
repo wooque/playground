@@ -1,28 +1,31 @@
 enum Tree {
   Leaf,
-  Node(uint, Box<Tree>, Box<Tree>)
+  Node(u32, Box<Tree>, Box<Tree>)
 }
 
-fn expand(val: uint, level: uint) -> Tree {
+fn expand(val: u32, level: u32) -> Tree {
   
   match level {
     0 => Tree::Leaf,
-    _ => Tree::Node(val, box expand(val, level - 1), box expand(val, level - 1))
+    _ => Tree::Node(val, 
+                    Box::new(expand(val, level - 1)), 
+                    Box::new(expand(val, level - 1)))
   }
 }
 
-fn sumit(node: &Tree) -> uint {
+fn sumit(node: &Tree) -> u32 {
   
   match node {
     &Tree::Leaf => 0,
-    &Tree::Node(val, box ref left, box ref right) => val + sumit(left) + sumit(right)
+    &Tree::Node(val, ref left, ref right) => 
+        val + sumit(left) + sumit(right)
   }
 }
 
 fn main() {
   
-  for _ in range(1u8, 101u8) {
-    for i in range(1, 21) {
+  for _ in 1..101 {
+    for i in 1..21 {
       
       let result = sumit(&expand(25 - i, i));
       println!("{}: {}", i, result);
