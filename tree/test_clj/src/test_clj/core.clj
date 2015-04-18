@@ -2,6 +2,7 @@
   (:gen-class))
 
 (set! *warn-on-reflection* true)
+(set! *unchecked-math* true)
 
 (deftype Node [^long value left right])
 
