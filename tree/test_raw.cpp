@@ -39,8 +39,6 @@ Node* expand(int init, int level)
 
 int main(int argc, char **argv)
 {
-	clock_t start = clock();
-	
 	for(int j = 1; j < 101; j++)
     {
 		for(int i = 1; i < 21; i++)
@@ -50,9 +48,6 @@ int main(int argc, char **argv)
 			delete tree;
 		}
     }
-		
-	clock_t end = clock();
-	cout << "Time: " << (end-start)/1000000 << " s" << endl; 
 	return 0;
 }
 
