@@ -1,12 +1,7 @@
 (ns lang.core
-  (:use lang.jdbc)
+  (:use clojure.java.jdbc)
   (:use [clojure.java.io :only [delete-file]])
   (:gen-class))
-
-(def insertdata {:name "Java"
-                 :desc "Bla"
-                 :num 12445
-                 :percent 235352.756})
 
 (def db
   {:classname   "org.sqlite.JDBC"
@@ -14,19 +9,21 @@
    :subname     "lang.db"})
 
 (defn create-db []
-  (try (db-do-commands db
-                       (create-table-ddl :lang
-                                         [:id :integer "PRIMARY KEY" "NOT NULL"]
-                                         [:name :text]
-                                         [:desc :text]
-                                         [:num :integer]
-                                         [:percent :real]))
-       (catch Exception e (println e))))
+  (db-do-commands db (create-table-ddl :lang
+                                       [:id :integer "PRIMARY KEY" "NOT NULL"]
+                                       [:name :text]
+                                       [:desc :text]
+                                       [:num :integer]
+                                       [:percent :real])))
+
+(def prep "INSERT INTO lang (name, desc, num, percent) VALUES (?, ?, ?, ?)")
+(def data ["Java" "Bla" "12445" "235352.756"])
 
 (defn test-db []
   (with-db-transaction [tc db]
-    (dotimes [_ 100000]
-      (insert! tc :lang insertdata :transaction? false))))
+    (let [prep-stmt (prepare-statement (db-find-connection tc) prep)]
+      (dotimes [_ 1e6]
+        (db-do-prepared tc false prep-stmt data)))))
 
 (defn -main
   [& args]
