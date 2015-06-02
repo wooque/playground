@@ -34,10 +34,10 @@ public class App
             
             for (int i = 0; i < 1000000; i++)
             {
-                pres.setObject(1, "Java" + i);
-                pres.setObject(2, "Bla" + i);
-                pres.setObject(3, i);
-                pres.setObject(4, i*0.27);
+                pres.setString(1, "Java" + i);
+                pres.setString(2, "Bla" + i);
+                pres.setInt(3, i);
+                pres.setDouble(4, i*0.27);
                 pres.executeUpdate();
             }
             
