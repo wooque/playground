@@ -1,5 +1,5 @@
 (ns lang.core
-  (:use clojure.java.jdbc)
+  (:use lang.jdbc)
   (:use [clojure.java.io :only [delete-file]])
   (:gen-class))
 
