@@ -17,7 +17,7 @@
                                        [:percent :real])))
 
 (def prep "INSERT INTO lang (name, desc, num, percent) VALUES (?, ?, ?, ?)")
-(def data ["Java" "Bla" "12445" "235352.756"])
+(def data ["Java" "Bla" 12445 235352.756])
 
 (defn test-db []
   (with-db-transaction [tc db]
