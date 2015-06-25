@@ -1,10 +1,10 @@
 struct Node {
   val: i32,
-  left: usize,
-  right: usize,
+  left: i32,
+  right: i32,
 }
 
-fn expand(tree: &mut Vec<Node>, val: i32, level: i32) -> usize {
+fn expand(tree: &mut Vec<Node>, val: i32, level: i32) -> i32 {
 	
   if level <= 0 {
 	return -1;
@@ -14,16 +14,16 @@ fn expand(tree: &mut Vec<Node>, val: i32, level: i32) -> usize {
   let right = expand(tree, val, level - 1);
   tree.push(Node{val: val, left: left, right: right});
 
-  return tree.len() - 1;
+  return tree.len() as i32 - 1;
 }
 
-fn sum(tree: &Vec<Node>, node_index: usize) -> i32 {
+fn sum(tree: &Vec<Node>, node_index: i32) -> i32 {
   
   if node_index == -1 {
 	  return 0;
   }
   
-  let node = &tree[node_index];
+  let node = &tree[node_index as usize];
   return node.val + sum(tree, node.left) + sum(tree, node.right)
 }
 
