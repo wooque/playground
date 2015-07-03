@@ -1,6 +1,7 @@
 (ns tt.core
     (:gen-class)
     (:use org.httpkit.server))
+(set! *warn-on-reflection* true)
 
 (defn async-handler [ring-request]
   (with-channel ring-request channel 
