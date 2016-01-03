@@ -31,10 +31,11 @@ public:
   virtual void handleRequest(HTTPServerRequest &req, HTTPServerResponse &resp)
   {
     resp.setStatus(HTTPResponse::HTTP_OK);
-    //resp.setContentType("text/html");
+    resp.setContentType("text/plain; charset=utf-8");
+    resp.setContentLength(12);
 
     ostream& out = resp.send();
-    out << "<h1>Hello world!</h1>";
+    out << "Hello world!";
         //<< "<p>Count: "  << ++count         << "</p>"
         //<< "<p>Host: "   << req.getHost()   << "</p>"
         //<< "<p>Method: " << req.getMethod() << "</p>"
@@ -62,7 +63,7 @@ class MyServerApp : public ServerApplication
 protected:
   int main(const vector<string> &)
   {
-    HTTPServer s(new MyRequestHandlerFactory, ServerSocket(9090), new HTTPServerParams);
+    HTTPServer s(new MyRequestHandlerFactory, ServerSocket(8080), new HTTPServerParams);
 
     s.start();
     cout << endl << "Server started" << endl;
