@@ -32,15 +32,12 @@ public:
   {
     resp.setStatus(HTTPResponse::HTTP_OK);
     resp.setContentType("text/plain; charset=utf-8");
-    resp.setContentLength(12);
 
-    ostream& out = resp.send();
-    out << "Hello world!";
-        //<< "<p>Count: "  << ++count         << "</p>"
-        //<< "<p>Host: "   << req.getHost()   << "</p>"
-        //<< "<p>Method: " << req.getMethod() << "</p>"
-        //<< "<p>URI: "    << req.getURI()    << "</p>";
-    out.flush();
+    resp.sendBuffer("Hello World!", 12);
+    //<< "<p>Count: "  << ++count         << "</p>"
+    //<< "<p>Host: "   << req.getHost()   << "</p>"
+    //<< "<p>Method: " << req.getMethod() << "</p>"
+    //<< "<p>URI: "    << req.getURI()    << "</p>";
   }
 
 private:
