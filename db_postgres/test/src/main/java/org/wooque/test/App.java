@@ -1,6 +1,5 @@
 package org.wooque.test;
 
-import java.io.File;
 import java.sql.*;
 
 public class App 
@@ -39,7 +38,7 @@ public class App
     {
         private int index;
         
-        public Unit2(int index) {
+        Unit2(int index) {
             this.index = index;
         }
         
@@ -76,7 +75,7 @@ public class App
     {
         private int index;
         
-        public Unit3(int index) {
+        Unit3(int index) {
             this.index = index;
         }
         
